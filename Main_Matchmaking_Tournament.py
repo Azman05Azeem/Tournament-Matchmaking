@@ -385,6 +385,10 @@ while user_input not in Valid:
 
 while user_input in Yes:
     time.sleep(0.3)
+    print("\n>> Starting the Tournament! (Format: Double Round-Robin)")
+    time.sleep(0.5)
+    print(">> Please Wait...")
+    time.sleep(2)
     player_entry()
     time.sleep(0.3)
     user_input = input("\n>> Start Again? (Yes or No): ")
