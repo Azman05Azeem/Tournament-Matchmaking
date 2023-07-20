@@ -17,7 +17,7 @@ def player_entry():  # Manages Matchmaking at Group Stages
     print(">>> INSTRUCTIONS <<<")
     print("====================")
     time.sleep(0.7)
-    print("- Min Players/Teams: '2'.")
+    print("- Min Players/Teams: 2.")
     time.sleep(1)
     print("- Enter 'Start' to Start Matchmaking.")
     time.sleep(1)
@@ -39,8 +39,11 @@ def player_entry():  # Manages Matchmaking at Group Stages
         user_input_player = input(">> Team/Player #" + str(playercount + 1) + "'s Name: ")
         time.sleep(0.5)
 
+        # Stops Entering Names After the following is Entered
         if user_input_player in ["", " "]:
             print(">> Invalid Input!")
+        elif user_input_player in playerlist:
+            print(">> This Name Already Exists!")
         elif user_input_player in ["Start", "START", "start"]:
             if playercount >= 2:
                 break
@@ -169,14 +172,14 @@ def group_stages(player_list, player_score, player_count):
     if player_count <= 4:
         qualified = sort(player_list, player_score, True, 2)  # Selects Top-2 Players (Player Count <= 4)
         time.sleep(1)
-        print("\n>> Congratulations to Contestants! Wish You Good luck!")
+        print("\n>> Congratulations to Contestants! Wishing You Good luck!")
         print(">> Moving on to Finals!")
         finals(qualified)
     elif player_count > 4:
         qualified = sort(player_list, player_score, True, 4)  # Selects Top-4 Players (Player Count > 4)
         time.sleep(1)
-        print("\n>> Congratulations to Qualifiers! Wish You Good luck!")
-        print(">> Moving on to Semi-Finals!")
+        print("\n>> Congratulations to Qualifiers! Wishing You Good luck!")
+        print(">> Moving on to Semi Finals!")
         semi_finals(qualified)
 
 
@@ -421,4 +424,3 @@ print("""
 
 """)
 time.sleep(3)
-
