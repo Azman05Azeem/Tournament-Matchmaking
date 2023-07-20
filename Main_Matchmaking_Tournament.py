@@ -39,7 +39,7 @@ def player_entry():  # Manages Matchmaking at Group Stages
         user_input_player = input(">> Team/Player #" + str(playercount + 1) + "'s Name: ")
         time.sleep(0.5)
 
-        if user_input_player == " ":
+        if user_input_player in ["", " "]:
             print(">> Invalid Input!")
         elif user_input_player in ["Start", "START", "start"]:
             if playercount >= 2:
