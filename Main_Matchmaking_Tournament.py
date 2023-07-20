@@ -56,6 +56,8 @@ def player_entry():  # Manages Matchmaking at Group Stages
     if playercount != 2:
         group_stages(playerlist, playerscore, playercount)
     else:
+        print("\n>> Moving Directly to Finals! This Happened Because Only 2 Players Joined the Pool!")
+        time.sleep(1.5)
         finals([playerlist, playerscore])
 
 
@@ -166,14 +168,14 @@ def group_stages(player_list, player_score, player_count):
     if player_count <= 4:
         qualified = sort(player_list, player_score, True, 2)  # Selects Top-2 Players (Player Count <= 4)
         time.sleep(1)
-        print("\n>> Congratulations to Qualifiers! Wish You Good luck!")
+        print("\n>> Congratulations to Contestants! Wish You Good luck!")
         print(">> Moving on to Finals!")
         finals(qualified)
     elif player_count > 4:
         qualified = sort(player_list, player_score, True, 4)  # Selects Top-4 Players (Player Count > 4)
         time.sleep(1)
         print("\n>> Congratulations to Qualifiers! Wish You Good luck!")
-        print(">> Moving on to Quarter Finals!")
+        print(">> Moving on to Semi-Finals!")
         semi_finals(qualified)
 
 
