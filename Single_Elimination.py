@@ -17,7 +17,7 @@ def match_making():
         print(">>> INSTRUCTIONS <<<")
         print("====================")
         time.sleep(0.7)
-        print("- Min Players/Teams: 2.")
+        print("- Min Players/Teams: 2")
         time.sleep(1)
         print("- Enter 'Start' to Start Matchmaking.")
         time.sleep(1)
@@ -69,7 +69,7 @@ def match_making():
         time.sleep(1)
         print(">> Matchmaking in Progress...")
         time.sleep(1)
-        print(">> Let's Start!")
+        print(">> Let's Start!\n")
         game_rounds(pairs)
 
     def generate_match_pairs(playerslist):
@@ -92,40 +92,49 @@ def match_making():
         losers = []
         time.sleep(0.5)
 
+        if len(pairs) == 1:
+            previous = 2
+            print(">> Note: Moving to 'Finals' Because Only '2' Players Participated.")
+        elif len(pairs) == 2:
+            previous = 4
+            print(">> Note: Moving to 'Semi-Finals' Because Only '4' Players Participated.")
+
         while True:
-            print("\n=================")
-            print(">>> STAGE # " + str(stage_number+1) + " <<<")
-            print("=================")
-            time.sleep(1)
-            stage_number += 1
-            match_number = 0
-            print(">> Match Schedule:")
-
-            for Temp in pairs:
-                print(">> Round#" + str(match_number + 1) + ": " + Temp[0] + " vs " + Temp[1])
-                time.sleep(1)
-                match_number += 1
-
             match_number = 0
             time.sleep(1)
             print("\n>> Starting the Game...")
 
             if previous == 2:
                 print("\n===================")
-                print(">>> Final Round <<<")
+                print(">>> FINAL STAGE <<<")
                 print("===================")
+                time.sleep(0.5)
             elif previous == 4:
                 print("\n========================")
-                print(">>> Semi-Final Round <<<")
+                print(">>> SEMI-FINAL STAGE <<<")
                 print("========================")
+                time.sleep(0.5)
             else:
-                print("\n===================")
-                print(">>> MATCHMAKING <<<")
-                print("===================")
+                print("\n=================")
+                print(">>> STAGE # " + str(stage_number + 1) + " <<<")
+                print("=================")
+                time.sleep(1)
+
+            stage_number += 1
+            print(">> Match Schedule:")
+
+            for Temp in pairs:
+                print(">> Game #" + str(match_number + 1) + ": " + Temp[0] + " vs " + Temp[1])
+                time.sleep(1)
+                match_number += 1
+
+            match_number = 0
 
             for rounds in pairs:
                 time.sleep(0.5)
-
+                print("\n===================")
+                print(">>> MATCHMAKING <<<")
+                print("===================")
                 print(">> Match #" + str(match_number + 1) + ": " + rounds[0] + " vs " + rounds[1])
 
                 match_number += 1
@@ -164,12 +173,12 @@ def match_making():
             print(">> Qualified Players: ")
             for Temp_a in winners:
                 time.sleep(1)
-                print("- " + Temp_a)
+                print(" - " + Temp_a)
 
             print("\n>> Eliminated Players:")
             for Temp_b in losers:
                 time.sleep(1)
-                print("- " + Temp_b)
+                print(" - " + Temp_b)
 
             pairs = generate_match_pairs(winners)
 
@@ -187,11 +196,11 @@ def match_making():
         print(">>> END OF TOURNAMENT <<<")
         print("=========================")
         time.sleep(1)
-        print(">> The Tournament Has Come To an End!")
+        print(">> The Tournament Has Come To an End!\n")
         time.sleep(1)
         print(">> '" + winner + "' is the Winner of This Competition!")
         time.sleep(1)
-        print(">> '" + loser + "' Gave a Great Competition to " + "'" + winner + "'!")
+        print(">> '" + loser + "' Gave a Tough Competition to " + "'" + winner + "'!")
         time.sleep(1)
 
     player_entry()
