@@ -1,7 +1,9 @@
 # #IMPORT LIBRARIES
 import time
+import Single_Round_Robin
 import Double_Round_Robin
 import Single_Elimination
+import Double_Elimination
 
 # #MAIN SCREEN:
 Yes = ["yes", "YES", "Yes", "yEs", "yeS", "YeS", "Y", "y", "yE", "ye", "YE", "Ye"]
@@ -36,14 +38,16 @@ while user_input not in Valid:
     user_input = input(">> Invalid Input! Enter 'Yes' or 'No': ")
 
 while user_input in Yes:
-    format_options = ["0", "1", "2"]
+    format_options = ["0", "1", "2", "3", "4"]
     time.sleep(0.3)
     print("\n=========================")
     print(">>> AVAILABLE FORMATS <<<")
     print("=========================")
-    print("0) Leave Application")
-    print("1) Double Round-Robin")
-    print("2) Single Elimination")
+    print("0) Ending Tournament")
+    print("1) Single Round-Robin")
+    print("2) Double Round-Robin")
+    print("3) Single Elimination")
+    print("4) Double Elimination")
     time.sleep(0.3)
 
     user_input_format = input("\n>> Select a Format: ")
@@ -60,21 +64,29 @@ while user_input in Yes:
     time.sleep(2)
 
     if user_input_format == "1":
-        Double_Round_Robin.match_making()
+        Single_Round_Robin.match_making()
     elif user_input_format == "2":
+        Double_Round_Robin.match_making()
+    elif user_input_format == "3":
         Single_Elimination.match_making()
+    else:
+        Double_Elimination.match_making()
 
     time.sleep(0.3)
     user_input = input("\n>> Start a New Tournament? (Yes or No): ")
+
     while user_input not in Valid:
         time.sleep(0.3)
         user_input = input(">> Invalid Input! Enter 'Yes' or 'No': ")
+
     if user_input in No:
         time.sleep(0.3)
         user_input = input("\n>> Confirm? (Yes or No): ")
+
         while user_input not in Valid:
             time.sleep(0.3)
             user_input = input(">> Invalid Input! Enter 'Yes' or 'No': ")
+
         if user_input in Yes:
             break
         else:
