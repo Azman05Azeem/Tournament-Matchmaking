@@ -3,5 +3,7 @@
 - Goodluck with Hosting Your Own Tournament!
 
 # Select an Available Format:
-1) Double Round-Robin
-2) Single Elimination
+1) Single Round-Robin
+2) Double Round-Robin
+3) Single Elimination
+4) Double Elimination
