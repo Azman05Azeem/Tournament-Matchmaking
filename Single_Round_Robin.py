@@ -187,7 +187,7 @@ def match_making():
             current_pairs = []
 
             time.sleep(0.5)
-            if rounds == 1 and (player_count != 4):
+            if rounds == 1 and (player_count > 4):
                 print("\n>> Player Qualifying For Semi-Finals:")
                 time.sleep(0.5)
                 qualified = sort(player_list, player_score, True, 4)
@@ -195,7 +195,7 @@ def match_making():
                 current_pairs = [(player_list_a[0], player_list_a[1]), (player_list_a[0], player_list_a[1])]
                 player_score = qualified[1]
 
-            if rounds > 1 or (player_count == 4):
+            if rounds > 1 or (player_count <= 4):
                 print("\n>> Player Qualifying For Finals:")
                 time.sleep(0.5)
                 qualified = sort(player_list, player_score, True, 2)
@@ -209,7 +209,7 @@ def match_making():
         print(">>> FINAL ROUND <<<")
         print("===================")
         time.sleep(0.5)
-        print(">> Intensive Final Match Between: '" + str(player_data[0][0]) + "' & '" + str(player_data[1][0]) + "'")
+        print(">> Intensive Final Match Between: '" + str(player_data[0][0]) + "' & '" + str(player_data[0][1]) + "'")
         time.sleep(2)
         print(">> Wishing Both Opponents GoodLuck!")
         time.sleep(1.5)
@@ -217,11 +217,10 @@ def match_making():
         print(">>> SCOREBOARD UPDATE <<<")
         print("=========================")
         print("1) " + player_data[0][0])
-        print("2) " + player_data[1][1])
+        print("2) " + player_data[0][1])
         print("")
         time.sleep(1)
         user_input = input(">> Winner of Tournament: ")
-
         while True:
             if user_input in ["1", "2"]:
                 time.sleep(1.5)
@@ -232,9 +231,9 @@ def match_making():
                 print("==================================")
                 if user_input == "1":
                     champion = player_data[0][0]
-                    runner = player_data[1][0]
+                    runner = player_data[0][1]
                 else:
-                    champion = player_data[1][0]
+                    champion = player_data[0][1]
                     runner = player_data[0][0]
                 break
             else:
