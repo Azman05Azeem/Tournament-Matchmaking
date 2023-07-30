@@ -150,6 +150,7 @@ def match_making():
 
             # Count Match Number
             match_number_a = 0  # For Managing Round-Schedule
+            match_number_b = 0  # For Managing Round-Information
 
             if len(pairs) > 1:  # Displays Round Schedule
                 print("\n======================")
@@ -166,7 +167,13 @@ def match_making():
                 print("\n=========================")
                 print(">>> MATCH INFORMATION <<<")
                 print("=========================")
-                print(">> Match: " + Temp[0] + " vs " + Temp[1])
+
+                if len(pairs) > 2:
+                    print(f">> Match #{match_number_b + 1}: " + Temp[0] + " vs " + Temp[1])
+                else:
+                    print(">> Match: " + Temp[0] + " vs " + Temp[1])
+
+                match_number_b += 1
 
                 time.sleep(1)  # Updating Scoreboard
                 print("\n=========================")
@@ -243,9 +250,11 @@ def match_making():
         buffer_one = ""  # Temporary Storage To Manage Complexities
 
         semi_finalists = []  # Stores Semi Finalist Pairs
+        semi_final_flag = False  # Flag To Start Semi-Finals
 
         final_one = ""  # Finalist #1
         final_two = ""  # Finalist #2
+        final_flag = False  # Flag To Start Finals
 
         if game_rounds == 0:  # First Round
             print("\n===================")
@@ -318,16 +327,49 @@ def match_making():
                                 time.sleep(1)
                                 next_pairs = information_last_chance[1]
 
-                                if len(next_pairs) % 2 != 0 and (not equality_flag):  # Manages Unequal pairs
-                                    next_pairs.append(buffer_one)
+                                # Manages Unequal pairs, No Need for Semi-Finals after this Case
+                                if len(next_pairs) % 2 != 0 and (not equality_flag) and (len(information_last_chance[1]) != 1):  
+                                    time.sleep(0.5)
+                                    print("\n>> Matchmaking System has detect 'Irregularities'. Thereby,"
+                                          " matches are re-adjusted, so there will 'No Semi-Finals'!")
+
+                                    time.sleep(2)
+                                    next_pairs.append(buffer_one)  # Semi-Finalist For Adjustment
                                     information_last_chance = game_rounds_manager(generate_pairs(next_pairs), False)
                                     equality_flag = True
+                                    
+                                # Manages Unequal pairs if it occurs more than once
+                                elif equality_flag and (len(next_pairs) % 2 != 0) and (len(information_last_chance[1]) != 1):  
+                                    time.sleep(0.5)
+                                    print(f"\n>> {final_one} is coming for a Tie-Break! This Happened due to "
+                                          f"'Un-Equality' in Number of Players! They are still Finalist!")
+
+                                    time.sleep(0.5)
+                                    next_pairs.append(final_one)  # Finalist For Adjustment
+                                    information_last_chance = game_rounds_manager(generate_pairs(next_pairs), False)
+
+                                    if final_one in information_last_chance[1]:  # Removes Finalist (incase they win)
+                                        information_last_chance[1].remove(final_one)
+
+                                    if len(information_last_chance[1]) == 1:  
+                                        final_two = information_last_chance[1][0]
+                                        last_chance_loop_flag = False
+                                        final_flag = True
+                                        break
+
                                 else:  # Runs Qualifier Rounds until Only 'One' Player is Left
                                     information_last_chance = game_rounds_manager(generate_pairs(next_pairs), False)
-                                    if len(information_last_chance[1]) == 1:
+
+                                    if len(information_last_chance[1]) == 1 and (not equality_flag):
                                         buffer_two = information_last_chance[1][0]
                                         semi_finalists = [buffer_one, buffer_two]
                                         last_chance_loop_flag = False
+                                        semi_final_flag = True
+                                        break
+                                    elif equality_flag and (len(information_last_chance[1]) == 1):
+                                        final_two = information_last_chance[1][0]
+                                        last_chance_loop_flag = False
+                                        final_flag = True
                                         break
 
                         # Direct Semi-Finals in case of Lesser Players (4 Players, Tested)
@@ -335,9 +377,10 @@ def match_making():
                             buffer_two = information_last_chance[1][0]
                             semi_finalists = [buffer_one, buffer_two]
                             last_chance_loop_flag = False
+                            semi_final_flag = True
 
                 # Runs Semi Final Rounds
-                if not winner_loop_flag and (not last_chance_loop_flag):
+                if semi_final_flag and (not winner_loop_flag) and (not last_chance_loop_flag):
                     time.sleep(1)
                     print("\n=========================")
                     print(">>> SEMI-FINALS ROUND <<<")
@@ -346,11 +389,16 @@ def match_making():
                     time.sleep(0.5)
                     information_semi_final = game_rounds_manager(generate_pairs(semi_finalists), False)
                     final_two = information_semi_final[1][0]
+                    final_flag = True
+                    break
+
+                elif final_flag and (not semi_final_flag) and (not winner_loop_flag) and (not last_chance_loop_flag):
                     break
 
                 game_rounds += 1
 
         # Final Match
-        finals([final_one, final_two])
+        if final_flag:
+            finals([final_one, final_two])
 
     player_entry()
