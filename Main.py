@@ -4,13 +4,15 @@ import Single_Round_Robin
 import Double_Round_Robin
 import Single_Elimination
 import Double_Elimination
+import Features
+
 
 # #MAIN SCREEN:
+
 Yes = ["yes", "YES", "Yes", "yEs", "yeS", "YeS", "Y", "y", "yE", "ye", "YE", "Ye"]
 No = ["No", "no", "NO", "nO", "N", "n"]
 
 Valid = Yes + No
-time.sleep(0.6)
 
 print('''
 
@@ -29,7 +31,7 @@ print('''
 
 ''')
 
-time.sleep(0.3)
+time.sleep(0.5)
 user_input = input("\n>> Start the Tournament? (Yes or No): ")
 
 # VALIDATION CHECKS FOR STARTING OR NOT
@@ -39,7 +41,9 @@ while user_input not in Valid:
 
 while user_input in Yes:
     format_options = ["0", "1", "2", "3", "4"]
+
     time.sleep(0.3)
+
     print("\n=========================")
     print(">>> AVAILABLE FORMATS <<<")
     print("=========================")
@@ -48,11 +52,24 @@ while user_input in Yes:
     print("2) Double Round-Robin")
     print("3) Single Elimination")
     print("4) Double Elimination")
+
     time.sleep(0.3)
 
-    user_input_format = input("\n>> Select a Format: ")
-    while user_input_format not in format_options:
-        user_input_format = input("\n>> Invalid Input!: ")
+    while True:
+        user_input_format = input("\n>> Selected Format: ")
+
+        while user_input_format not in format_options:
+            user_input_format = input(">> Invalid Input!: ")
+
+        if user_input_format in format_options:
+            confirm_flag = Features.confirm()
+
+            if confirm_flag:
+                break
+            else:
+                time.sleep(0.5)
+                print("\n>> Processing... Please Wait!")
+                time.sleep(1.5)
 
     if user_input_format == "0":
         break
@@ -79,18 +96,10 @@ while user_input in Yes:
         time.sleep(0.3)
         user_input = input(">> Invalid Input! Enter 'Yes' or 'No': ")
 
-    if user_input in No:
-        time.sleep(0.3)
-        user_input = input("\n>> Confirm? (Yes or No): ")
+    confirm_flag = Features.confirm()
 
-        while user_input not in Valid:
-            time.sleep(0.3)
-            user_input = input(">> Invalid Input! Enter 'Yes' or 'No': ")
-
-        if user_input in Yes:
-            break
-        else:
-            user_input = "Yes"
+    if not confirm_flag:
+        break
 
 time.sleep(0.6)
 print("""
