@@ -81,13 +81,13 @@ while user_input in Yes:
     time.sleep(2)
 
     if user_input_format == "1":
-        Single_Round_Robin.match_making()
+        Single_Round_Robin.main()
     elif user_input_format == "2":
-        Double_Round_Robin.match_making()
+        Double_Round_Robin.main()
     elif user_input_format == "3":
-        Single_Elimination.match_making()
+        Single_Elimination.main()
     else:
-        Double_Elimination.match_making()
+        Double_Elimination.main()
 
     time.sleep(0.3)
     user_input = input("\n>> Start a New Tournament? (Yes or No): ")
