@@ -1,6 +1,5 @@
 # Tournament Matchmaking
 - Matchmaking For Your Tournament!
-- Commandline-based
 - Room For Improvement is always available.
 
 # Available Format:
